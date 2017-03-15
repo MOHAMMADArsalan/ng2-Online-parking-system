@@ -39,8 +39,6 @@ export class ParkingEpics {
                                 type: ParkingAction.GET_PARKING_DETAILS_BY_USER_SUCCESS,
                                 payload: details
                             })
-                            // return location.map((locationArray) => {
-                            // })
                         } else {
                             return Observable.of({
                                 type: ParkingAction.GET_PARKING_DETAILS_BY_USER_FAIL,
@@ -56,9 +54,7 @@ export class ParkingEpics {
                 return this.af.database.list(`/parking-availablity/${payload.locationId}/${payload.slotId}/${payload.date}`)
                     .mergeMap((details) => {
                         if (details) {
-                            console.log("GET_PARKING_LOCATION_AVAILABLITY: ", details)
                             details.map((detail) => {
-                                // if (detail['$key']) {
                                 delete detail['$key'];
                                 detail.map((a) => {
                                     availablityArray.push(a);
@@ -68,8 +64,6 @@ export class ParkingEpics {
                                 type: ParkingAction.GET_PARKING_LOCATION_AVAILABLITY_SUCCESS,
                                 payload: availablityArray
                             })
-                            // return location.map((locationArray) => {
-                            // })
                         } else {
                             return Observable.of({
                                 type: ParkingAction.GET_PARKING_LOCATION_AVAILABLITY_FAIL,

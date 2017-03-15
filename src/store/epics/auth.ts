@@ -40,7 +40,7 @@ export class AuthEpics {
       .switchMap(({payload}): any =>
         this.af.auth.login({ email: payload.email, password: payload.password },
           { provider: AuthProviders.Password, method: AuthMethods.Password }).then((auth) => {
-            this.setLocalStorage(auth)
+           
             return {
               type: AuthActions.GET_USER_INFO,
               payload: auth
@@ -58,6 +58,7 @@ export class AuthEpics {
         return this.af.database.object("/users/" + payload.uid)
           .map((user) => {
             if (user) {
+               this.setLocalStorage(user)
               return {
                 type: AuthActions.GET_USER_INFO_SUCCESS,
                 payload: Object.assign({}, payload, user)
@@ -84,13 +85,11 @@ export class AuthEpics {
     action$.ofType(AuthActions.ISLOGGEDIN)
       .switchMap(() => {
         if (this.getLocalStorage()) {
-          console.log('auth exists: ')
           return Observable.of({
             type: AuthActions.GET_USER_INFO,
             payload: this.getLocalStorage()
           });
         } else {
-          console.log('auth not exists')
           return Observable.of({
             type: AuthActions.LOGIN_FAIL
           });

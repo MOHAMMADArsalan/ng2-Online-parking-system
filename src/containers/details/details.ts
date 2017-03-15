@@ -14,7 +14,6 @@ export class DetailsContainer {
         this.user$.subscribe((user) => {
             if (Object.keys(user).length) {
                 this.pa.getParkingDetailByUser(user.uid)
-                console.log("wwwwwwwwwwwwwwwwwwwwwwwwwww", user)
             }
         })
     }

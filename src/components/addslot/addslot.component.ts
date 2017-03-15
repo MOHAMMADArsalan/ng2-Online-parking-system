@@ -33,7 +33,6 @@ export class AddSlotComponent {
             this.slotNo = query.slot;
             let slot = this.slotNo.split("slot")[1];
             this.pe.getOneParkingData(this.locationId, slot);
-            console.log("this.locationId, slot, new Date().toISOString().split('T')[1]", this.locationId, slot, new Date().toISOString().split('T')[0])
             this.pe.getParkingAvailablity(this.locationId, slot, new Date().toISOString().split('T')[0])
         })
         this.saveMultipathEvent = new EventEmitter();
@@ -87,14 +86,6 @@ export class AddSlotComponent {
                 }
             }
         }
-    }
-    ngOnChanges(changes) {
-        console.log("changesssssssssssssssssssssssss", changes)
-        // if(changes.temp && changes.temp.currentValue) {
-        //     this.model['startHours'] = changes.temp.currentValue['startHours']
-        //     this.model['selectHours'] = changes.temp.currentValue['selectHours']
-
-        // }
     }
     ngOnInit() {
         this.getPushKey.emit()
